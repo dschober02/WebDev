@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    function doSomeStuff() {
+      // let x = "99X";
+      // x = parseInt(x) + 1
+      // console.log(`x = ${x}`);
+      // console.log(typeof x);
+      let x;
+      checkType(x);
+      }
+      function checkType( n ) {
+        let msg = `Input is of type ${typeof n}`
+        let resObj = document.getElementById("result")
+        resObj.innerHTML = msg;
+      }
+
+  </script>
+</head>
+<body>
+<button type="button" onClick="doSomeStuff()" /> Click me </button>
+<div id="result"></div>
+</body>
+</html>
