@@ -58,3 +58,7 @@ label {
     font-weight: normal;
     margin-left: 5px;
 }
+#results {
+    text-align: center;
+    color: #555555;
+}

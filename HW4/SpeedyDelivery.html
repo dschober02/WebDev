@@ -16,33 +16,56 @@
       const weightMultipliers = [1.0, 1.5, 2.0, 2.5, 3.0];
       const weights = ["0-10 lbs", "11-20 lbs", "21-30 lbs", "31-40 lbs", "40 lbs and above"];
       window.onload = function () {
-          const dests = document.getElementById("dest");
-          const weights = document.getElementById("weight");
-          const cost = document.getElementById("cost");
-          const reset = document.getElementById("reset");
+          const destSelected = document.getElementById("dest");
+          const weightSelect = document.getElementById("weight");
 
-
+          let i = 0;
           // populating destination drop-down
           destinations.forEach(dest => {
               const option = document.createElement('option');
-              option.value = dest.name;
-              option.textContent = dest.name;
-              dests.appendChild(option);
+              option.value = `${i++}`;
+              option.textContent = dest;
+              destSelected.appendChild(option);
+              console.log("Populating dest " + i)
           })
 
           // populating weights drop-down
+          i = 0;
           weights.forEach(weight => {
               const option = document.createElement('option');
-              option.value = weight.name;
-              option.textContent = weight.name;
-              weights.appendChild(option)
+              option.value = `${i++}`;
+              option.textContent = weight;
+              weightSelect.appendChild(option)
+              console.log("Populating weight " + i)
           })
 
           // event listeners for buttons
-          cost.addEventListener('click', () => {
+          document.getElementById("cost").addEventListener('click', () => {
+              event.preventDefault();
+              console.log("In cost calculation function")
+               let dest = document.getElementById("dest").value;
+               let weight = document.getElementById("weight").value;
+               let miles = distancesInMiles[dest];
+               let perMile = costPerMile[dest];
+               let multiplier = weightMultipliers[weight];
+               let calcCost = miles * perMile * multiplier;
 
+               let results = document.getElementById("results");
+               results.innerHTML = `Destination: ${destinations[dest]} - Total Cost: ${toDollars(calcCost)}`;
+               console.log(`Destination: ${destinations[dest]} - Total Cost: ${toDollars(calcCost)}`);
+               results.hidden = false;
           })
-          reset.addEventListener('click', () => {
+          document.getElementById("reset").addEventListener('click', () => {
+              event.preventDefault();
+              destSelected.value = "";
+              weightSelect.value = "";
+              document.getElementById("results").hidden = true;
+          })
+      }
+      function toDollars(num) {
+          return num.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
 
           })
       }
@@ -70,6 +93,8 @@
       </div>
       <button class="btn" id="cost">Calculate Cost</button>
       <button class="btn" id="reset"> Reset</button>
+
+      <div id="results" hidden> results will appear here</div>
    </form>
 </div>
 </body>
